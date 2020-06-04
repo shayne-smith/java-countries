@@ -3,8 +3,11 @@ package com.lambdaschool.countrysearch;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value={"/names"})
@@ -17,6 +20,24 @@ public class CountryNamesController {
         CountrySearchApplication.ourCountryList.countryList.sort((c1, c2) -> (c1.getName().compareToIgnoreCase(c2.getName())));
         return new ResponseEntity<>(CountrySearchApplication.ourCountryList.countryList,
             HttpStatus.OK);
+    }
+
+    // http://localhost:2019/names/start/{letter}
+    @GetMapping(value = "/start/{letter}",
+    produces = {"application/json"})
+    public ResponseEntity<?> getCountriesByLetter(@PathVariable char letter) {
+        List<Country> rtnCos = CountrySearchApplication.ourCountryList.findCountries(c -> c.getName().toUpperCase().charAt(0)==Character.toUpperCase(letter));
+        rtnCos.sort((c1, c2) -> (c1.getName().compareToIgnoreCase(c2.getName())));
+        return new ResponseEntity<>(rtnCos, HttpStatus.OK);
+    }
+
+    // http://localhost:2019/names/size/20
+    @GetMapping(value = "/size/{length}",
+    produces = {"application/json"})
+    public ResponseEntity<?> getCountriesByNameLength(@PathVariable int length) {
+        List<Country> rtnCos = CountrySearchApplication.ourCountryList.findCountries(c -> c.getName().length()>=20);
+        rtnCos.sort((c1, c2) -> (c1.getName().compareToIgnoreCase((c2.getName()))));
+        return new ResponseEntity<>(rtnCos, HttpStatus.OK);
     }
 }
 
