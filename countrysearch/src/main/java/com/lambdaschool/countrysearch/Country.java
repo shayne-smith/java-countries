@@ -1,8 +1,12 @@
 package com.lambdaschool.countrysearch;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 public class Country
 {
     // fields
+    private static final AtomicLong counter = new AtomicLong();
+    private long id;
     private String name;
     private long population;
     private long landMass;
@@ -14,10 +18,21 @@ public class Country
         long landMass,
         long medianAge)
     {
+        this.id = counter.incrementAndGet();
         this.name = name;
         this.population = population;
         this.landMass = landMass;
         this.medianAge = medianAge;
+    }
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
     }
 
     public String getName()
@@ -64,6 +79,7 @@ public class Country
     public String toString()
     {
         return "Country{" +
+            "id=" + id +
             ", name='" + name + '\'' +
             ", population=" + population +
             ", landMass=" + landMass +
