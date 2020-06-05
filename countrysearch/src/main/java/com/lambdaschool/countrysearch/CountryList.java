@@ -257,19 +257,30 @@ public class CountryList
         return largest;
     }
 
-//    public List<Country> findMedianCountries(CheckCountry tester) {
-//        List<Country> tempCountryList = new ArrayList<>();
-//
-//        for (Country c : countryList) {
-//            if (tester.test(c))
-//            {
-//                if (c.getPopulation() > max)
-//                {
-//                    max = (int) c.getPopulation();
-//                    largest = c;
-//                }
-//            }
-//        }
-//        return largest;
-//    }
+    public Country findYoungest() {
+        int min = 1000000000;
+        Country youngest = new Country("", 0, 0, 0);
+
+        for (Country c : countryList) {
+            if (c.getMedianAge() < min) {
+                min = (int) c.getMedianAge();
+                youngest = c;
+            }
+        }
+        return youngest;
+    }
+
+    public Country findOldest() {
+        int max = 0;
+        Country oldest = new Country("", 0,0,0);
+
+        for (Country c : countryList) {
+            if (c.getMedianAge() > max) {
+                max = (int) c.getMedianAge();
+                oldest = c;
+            }
+        }
+        return oldest;
+    }
+
 }

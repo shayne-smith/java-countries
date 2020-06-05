@@ -20,4 +20,20 @@ public class CountryAgeController
         List<Country> rtnCos = CountrySearchApplication.ourCountryList.findCountries(c -> (int) c.getMedianAge() >= age);
         return new ResponseEntity<>(rtnCos, HttpStatus.OK);
     }
+
+    // http://localhost:2019/age/min
+    @GetMapping(value = "/min",
+    produces = {"application/json"})
+    public ResponseEntity<?> getYoungest() {
+        Country rtnCo = CountrySearchApplication.ourCountryList.findYoungest();
+        return new ResponseEntity<>(rtnCo, HttpStatus.OK);
+    }
+
+    // http://localhost:2019/age/max
+    @GetMapping(value = "/max",
+    produces = {"application/json"})
+    public ResponseEntity<?> getOldest() {
+        Country rtnCo = CountrySearchApplication.ourCountryList.findOldest();
+        return new ResponseEntity<>(rtnCo, HttpStatus.OK);
+    }
 }
