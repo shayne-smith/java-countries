@@ -230,4 +230,46 @@ public class CountryList
         }
         return tempCountryList;
     }
+
+    public Country findSmallestCountry() {
+        int min = 1000000000;
+        Country smallest = new Country("", 0, 0, 0);
+
+        for (Country c : countryList) {
+            if (c.getPopulation() < min) {
+                min = (int) c.getPopulation();
+                smallest = c;
+            }
+        }
+        return smallest;
+    }
+
+    public Country findLargestCountry() {
+        int max = 0;
+        Country largest = new Country("", 0,0,0);
+
+        for (Country c : countryList) {
+            if (c.getPopulation() > max) {
+                max = (int) c.getPopulation();
+                largest = c;
+            }
+        }
+        return largest;
+    }
+
+//    public List<Country> findMedianCountries(CheckCountry tester) {
+//        List<Country> tempCountryList = new ArrayList<>();
+//
+//        for (Country c : countryList) {
+//            if (tester.test(c))
+//            {
+//                if (c.getPopulation() > max)
+//                {
+//                    max = (int) c.getPopulation();
+//                    largest = c;
+//                }
+//            }
+//        }
+//        return largest;
+//    }
 }
